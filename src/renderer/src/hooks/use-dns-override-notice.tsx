@@ -13,7 +13,7 @@ export function useDnsOverrideAutoDisabledNotice(): void {
 
   useEffect(() => {
     const claim = async (): Promise<void> => {
-      let pending = false
+      let pending: boolean
       try {
         pending = await takeDnsOverrideAutoDisabledNotice()
       } catch {

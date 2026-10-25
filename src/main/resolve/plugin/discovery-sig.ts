@@ -133,7 +133,7 @@ export function parseSigned(
   if (payloadBytes.length === 0 || payloadBytes.length > MAX_DISCOVERY_PAYLOAD_BYTES) {
     fail(`payload must be 1..${MAX_DISCOVERY_PAYLOAD_BYTES} bytes`)
   }
-  let ok = false
+  let ok: boolean
   try {
     ok = verifyRequest(pubKeyB64, buildDiscoverySignInput(payloadBytes), sigB64)
   } catch {

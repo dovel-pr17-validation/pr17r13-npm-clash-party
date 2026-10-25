@@ -1141,15 +1141,19 @@ export async function checkProfileConfig(
             ? allLines
             : (stderr ?? '').split('\n').filter((line) => line.trim().length > 0)
         throw new Error(
-          `${i18next.t('mihomo.error.profileCheckFailed')}:\n${detailLines.join('\n')}`
+          `${i18next.t('mihomo.error.profileCheckFailed')}:\n${detailLines.join('\n')}`,
+          { cause: error }
         )
       } else {
         throw new Error(
-          `${i18next.t('mihomo.error.profileCheckFailed')}:\n${errorLines.join('\n')}`
+          `${i18next.t('mihomo.error.profileCheckFailed')}:\n${errorLines.join('\n')}`,
+          { cause: error }
         )
       }
     } else {
-      throw new Error(`${i18next.t('mihomo.error.profileCheckFailed')}: ${error}`)
+      throw new Error(`${i18next.t('mihomo.error.profileCheckFailed')}: ${error}`, {
+        cause: error
+      })
     }
   }
 }

@@ -63,7 +63,7 @@ export async function encryptAgeContent(
     return age.armor.encode(await encrypter.encrypt(content))
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
-    throw new Error(`Failed to encrypt age ${label}: ${message}`)
+    throw new Error(`Failed to encrypt age ${label}: ${message}`, { cause: error })
   }
 }
 
@@ -86,6 +86,6 @@ export async function decryptAgeContent(
     return await decrypter.decrypt(age.armor.decode(content), 'text')
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
-    throw new Error(`Failed to decrypt age ${label}: ${message}`)
+    throw new Error(`Failed to decrypt age ${label}: ${message}`, { cause: error })
   }
 }

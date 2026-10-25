@@ -112,9 +112,9 @@ export async function getGitHubTags(
   } catch (error) {
     log.error(`Failed to fetch tags for ${owner}/${repo}`, error)
     if (error instanceof Error) {
-      throw new Error(`GitHub API error: ${error.message}`)
+      throw new Error(`GitHub API error: ${error.message}`, { cause: error })
     }
-    throw new Error('Failed to fetch version list')
+    throw new Error('Failed to fetch version list', { cause: error })
   }
 }
 
@@ -161,8 +161,8 @@ export async function downloadGitHubAsset(url: string, outputPath: string): Prom
   }
   log.error(`Failed to download asset from all sources`, lastError)
   throw lastError instanceof Error
-    ? new Error(`Download error: ${lastError.message}`)
-    : new Error('Failed to download core file')
+    ? new Error(`Download error: ${lastError.message}`, { cause: lastError })
+    : new Error('Failed to download core file', { cause: lastError })
 }
 
 /**
@@ -234,7 +234,7 @@ export async function installMihomoCore(version: string): Promise<void> {
             readStream.destroy()
             gunzip.destroy()
             writeStream.destroy()
-            reject(new Error(`Gzip decompression failed: ${error.message}`))
+            reject(new Error(`Gzip decompression failed: ${error.message}`, { cause: error }))
           }
 
           readStream.on('error', onError)
@@ -278,7 +278,8 @@ export async function installMihomoCore(version: string): Promise<void> {
     cleanupTempFile(join(mihomoCoreDir(), `temp-core.gz`))
     log.error('Failed to install mihomo core', error)
     throw new Error(
-      `Failed to install core: ${error instanceof Error ? error.message : String(error)}`
+      `Failed to install core: ${error instanceof Error ? error.message : String(error)}`,
+      { cause: error }
     )
   }
 }

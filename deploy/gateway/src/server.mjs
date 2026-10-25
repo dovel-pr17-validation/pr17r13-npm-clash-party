@@ -99,7 +99,7 @@ export function parseDiscoverySigned(text) {
   try {
     parsed = parseDiscoveryEnvelope(text)
   } catch (e) {
-    throw new Error(`DISCOVERY_SIGNED_FILE: ${e.message}`)
+    throw new Error(`DISCOVERY_SIGNED_FILE: ${e.message}`, { cause: e })
   }
   for (const k of Object.keys(ENDPOINTS)) {
     if (parsed.payload.endpoints[k] !== ENDPOINTS[k]) {

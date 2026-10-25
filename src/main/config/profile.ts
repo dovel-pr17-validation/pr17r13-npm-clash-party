@@ -796,7 +796,7 @@ export async function parseProfileContent(
     return result as IMihomoConfig
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e)
-    throw new Error(`Failed to parse profile "${id}": ${msg}`)
+    throw new Error(`Failed to parse profile "${id}": ${msg}`, { cause: e })
   }
 }
 

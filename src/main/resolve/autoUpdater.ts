@@ -259,7 +259,8 @@ async function installUpdate(version: string): Promise<void> {
           const fallbackErrorMessage =
             fallbackError instanceof Error ? fallbackError.message : String(fallbackError)
           throw new Error(
-            `Failed to execute installer: ${installerErrorMessage}. Fallback also failed: ${fallbackErrorMessage}`
+            `Failed to execute installer: ${installerErrorMessage}. Fallback also failed: ${fallbackErrorMessage}`,
+            { cause: fallbackError }
           )
         }
       }

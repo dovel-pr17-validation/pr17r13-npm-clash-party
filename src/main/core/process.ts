@@ -56,7 +56,7 @@ async function findWindowsCorePids(timeout: number): Promise<number[]> {
   }
   if (candidates.length === 0) return []
 
-  let processInfo = ''
+  let processInfo: string
   try {
     const result = await execFilePromise(
       'powershell',
@@ -232,7 +232,7 @@ export async function verifyProcessOwner(
   }
 
   try {
-    let processName = ''
+    let processName: string
     if (process.platform === 'win32') {
       const { stdout } = await execFilePromise(
         'tasklist',
