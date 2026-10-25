@@ -40,7 +40,7 @@ function convertMarkdownToTelegramHTML(content) {
     .join('\n')
 }
 
-let content = ''
+let content
 
 if (isDevRelease) {
   // 版本号中提取commit hash
